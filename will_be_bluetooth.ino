@@ -1,4 +1,6 @@
+#include <Arduino.h>
 #include <SoftwareSerial.h>
+#include <LiquidCrystal.h>
 
 String instruction = "Write: ";
 String input;
@@ -6,9 +8,12 @@ String input;
 const int letterArraySize = 50;
 char letters[letterArraySize];
 
-SoftwareSerial bt_comm(7,6);
+SoftwareSerial bt_comm(11,10);
+LiquidCrystal lcd(9, 8, 4, 5, 6, 7);
+int lcd_setup_time = 1000;
+int lcd_loop_time = 300;
 
-int led = 12;
+int led = 3;
 
 int buzzer = 2;
 int buzzFreq = 550;
@@ -36,6 +41,7 @@ void dashSound(){
 void dot(){
   digitalWrite(led, HIGH);
   tone(buzzer, buzzFreq);
+  lcd.print(".");
   delay(dotWait);
   digitalWrite(led, LOW);
   noTone(buzzer);
@@ -44,6 +50,7 @@ void dot(){
 void dash(){
   digitalWrite(led,HIGH);
   tone(buzzer, buzzFreq);
+  lcd.print("-");
   delay(dashWait);
   digitalWrite(led,LOW);
   noTone(buzzer);
@@ -54,6 +61,7 @@ void A(){
   dot();
   delay(signBreak);
   dash();
+  lcd.clear();
 }
 
 void B(){
@@ -64,6 +72,7 @@ void B(){
   dot();
   delay(signBreak);
   dot();
+  lcd.clear();
 }
 
 void C(){
@@ -74,6 +83,7 @@ void C(){
   dash();
   delay(signBreak);
   dot();
+  lcd.clear();
 }
 
 void D(){
@@ -82,12 +92,13 @@ void D(){
   dot();
   delay(signBreak);
   dot();
+  lcd.clear();
 }
 
 void E(){
   dot();
+  lcd.clear();
 }
-
 
 void Fr(){
   dot();
@@ -97,6 +108,7 @@ void Fr(){
   dash();
   delay(signBreak);
   dot();
+  lcd.clear();
 }
 
 void G(){
@@ -105,6 +117,7 @@ void G(){
   dash();
   delay(signBreak);
   dot();
+  lcd.clear();
 }
 
 void H(){
@@ -115,12 +128,14 @@ void H(){
   dot();
   delay(signBreak);
   dot();
+  lcd.clear();
 }
 
 void I(){
   dot();
   delay(signBreak);
   dot();
+  lcd.clear();
 }
 
 void J(){
@@ -131,6 +146,7 @@ void J(){
   dash();
   delay(signBreak);
   dash();
+  lcd.clear();
 }
 
 void K(){
@@ -139,6 +155,7 @@ void K(){
   dot();
   delay(signBreak);
   dash();
+  lcd.clear();
 }
 
 void L(){
@@ -149,18 +166,21 @@ void L(){
   dot();
   delay(signBreak);
   dot();
+  lcd.clear();
 }
 
 void M(){
   dash();
   delay(signBreak);
   dash();
+  lcd.clear();
 }
 
 void N(){
   dash();
   delay(signBreak);
   dot();
+  lcd.clear();
 }
 
 void O(){
@@ -169,6 +189,7 @@ void O(){
   dash();
   delay(signBreak);
   dash();
+  lcd.clear();
 }
 
 void P(){
@@ -179,6 +200,7 @@ void P(){
   dash();
   delay(signBreak);
   dot();
+  lcd.clear();
 }
 
 void Q(){
@@ -189,6 +211,7 @@ void Q(){
   dot();
   delay(signBreak);
   dash();
+  lcd.clear();
 }
 
 void R(){
@@ -197,6 +220,7 @@ void R(){
   dash();
   delay(signBreak);
   dot();
+  lcd.clear();
 }
 
 void S(){
@@ -205,10 +229,12 @@ void S(){
   dot();
   delay(signBreak);
   dot();
+  lcd.clear();
 }
 
 void T(){
   dash();
+  lcd.clear();
 }
 
 void U(){
@@ -217,6 +243,7 @@ void U(){
   dot();
   delay(signBreak);
   dash();
+  lcd.clear();
 }
 
 void V(){
@@ -227,6 +254,7 @@ void V(){
   dot();
   delay(signBreak);
   dash();
+  lcd.clear();
 }
 
 void W(){
@@ -235,6 +263,7 @@ void W(){
   dash();
   delay(signBreak);
   dash();
+  lcd.clear();
 }
 
 void X(){
@@ -244,6 +273,7 @@ void X(){
   delay(signBreak);
   dot();
   delay(signBreak);
+  lcd.clear();
 }
 
 void Y(){
@@ -254,6 +284,7 @@ void Y(){
   dash();
   delay(signBreak);
   dash();
+  lcd.clear();
 }
 
 void Z(){
@@ -264,6 +295,7 @@ void Z(){
   dot();
   delay(signBreak);
   dot();
+  lcd.clear();
 }
 
 
@@ -273,9 +305,11 @@ void setup(){
 
   bt_comm.begin(9600);
   Serial.begin(9600);
+  lcd.begin(16,2);
 	pinMode(led, OUTPUT);
   pinMode(buzzer, OUTPUT);
-
+  lcd.print("Hello");
+  delay(lcd_setup_time);
 }
 
 void loop(){
