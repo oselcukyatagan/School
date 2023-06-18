@@ -63,7 +63,7 @@ void dash(int i) {
 }
 
 void clear() {
-  for (int j = 16; j > 0; j--) {
+  for (int j = 16; j >= 0; j--) {
     lcd.setCursor(j, 1);
     lcd.print(" ");
   }
